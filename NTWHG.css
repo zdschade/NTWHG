@@ -1,0 +1,74 @@
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 400px;
+}
+
+.status {
+    font-family: 'poppins';
+    padding-left: 16px;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    margin-top: 250px;
+    display: flex;
+    width: 400px;
+}
+
+.status h1 {
+    margin-bottom: -15px;
+}
+
+.level-fails {
+    width: 40%;
+}
+
+.point_container {
+    width: 75%;
+    text-align: right;
+    padding-right: 30px;
+}
+
+.point_container h1{
+    margin-right: 0;
+}
+
+#point_indicators {
+    padding-top: 25px;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #FF7F00;
+    border: 5px solid blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot_collected {
+    height: 25px;
+    width: 25px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.instructions {
+    font-family: 'poppins';
+    text-align: center;
+    padding-left: 16px;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    margin-top: 15px;
+}
+
+.debug {
+    display: none;
+}

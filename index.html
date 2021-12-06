@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Not The World's Hardest Game</title>
+    <link rel="stylesheet" href="NTWHG.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Poppins">
+  </head>
+
+  <body onload="main()" style="background-color: #FF7F00">
+
+    <div class="status">
+      <div class="level-fails">
+        <h1 id="level_label">Level 0</h1>
+        <h2 id="fails">Fails: 0</h2>
+      </div>
+      <div class="point_container">
+        <h1 id='point_label'>Points</h1>
+        <div id="point_indicators">
+        </div>
+      </div>
+    </div>
+
+    <canvas id="webgl" width="500" height="500">
+    Please use a browser that supports "canvas"
+    </canvas>
+    
+    <div class="instructions">
+      <h1>Move the player with arrow keys</h1>
+      <h1>Collect all blue points before reaching the end</h1>
+      <h1>Red objects will reset the level</h1>
+    </div>
+
+    <div class="debug">
+      <h1 id='xcoord'></h1>
+      <h1 id='ycoord'></h1>
+      <button id="level0">Level 0</button>
+      <button id="level1">Level 1</button>
+      <button id="level2">Level 2</button>
+      <button id="level3">Level 3</button> 
+    </div>
+    
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    <script src="NTWHG.js"></script>
+  </body>
+</html>
