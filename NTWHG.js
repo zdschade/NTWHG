@@ -349,16 +349,16 @@ function main() {
     }
   }  
 
-  function colissionloop(objects, newx, newy, point=false, l3=false) {
+  function collisionloop(objects, newx, newy, point=false, l3=false) {
     // objects should be a list of lists
     // ex. [[ob1x, ob1y, ob1height, obwidth][ob2x, ob2y, ob2height, ob2width]]
-    // If we are checking colission with a point, it keeps track of which point we are checking
+    // If we are checking collision with a point, it keeps track of which point we are checking
     // and returns the point we collide with so it can be removed.
     if (!point) {  // not a point
       if (l3) {
         for (i=0; i<objects.length; i++) {
           currobject = objects[i]
-          if (checkColission(currplayerx, currplayery, newx, newy, 
+          if (checkcollision(currplayerx, currplayery, newx, newy, 
                               currobject[0], currobject[1], currobject[2], currobject[3], true)) {
             return true
           }
@@ -366,7 +366,7 @@ function main() {
       } else {
         for (i=0; i<objects.length; i++) {
           currobject = objects[i]
-          if (checkColission(currplayerx, currplayery, newx, newy, 
+          if (checkcollision(currplayerx, currplayery, newx, newy, 
                             currobject[0], currobject[1], currobject[2], currobject[3])) {
           return true
           }
@@ -378,7 +378,7 @@ function main() {
       pointIndex = 0
       for (p=0; p<objects.length; p++) {
         currobject = objects[p]
-        if (checkColission(currplayerx, currplayery, newx, newy, 
+        if (checkcollision(currplayerx, currplayery, newx, newy, 
                             currobject[0]-0.05, currobject[1]+0.05, 0.1, 0.1)) {
           return pointIndex
         } else {
@@ -451,20 +451,20 @@ function main() {
     // newx, newy are how much the player moves in a given direction
     // ex. -0.1, 0 would make the player move left
 
-    // Checks colission with the border walls
-    staticCheck = staticColission(currplayerx, currplayery, newx, newy)
-    // Checks colission with regular black obstacles
-    colissionCheck = colissionloop(obstacles, newx, newy)
-    // Checks colission with damagers
-    damagerColission = colissionloop(damagers, newx, newy)
-    // Checks colission with points
-    pointCollection = colissionloop(points, newx, newy, true)
+    // Checks collision with the border walls
+    staticCheck = staticcollision(currplayerx, currplayery, newx, newy)
+    // Checks collision with regular black obstacles
+    collisionCheck = collisionloop(obstacles, newx, newy)
+    // Checks collision with damagers
+    damagercollision = collisionloop(damagers, newx, newy)
+    // Checks collision with points
+    pointCollection = collisionloop(points, newx, newy, true)
 
-    if (damagerColission) {  // if the player collided with a damager, restart the level
+    if (damagercollision) {  // if the player collided with a damager, restart the level
       resetPlayer()
 
       // if the player did not collide with a wall or obstacle
-    } else if (staticCheck && !colissionCheck) {
+    } else if (staticCheck && !collisionCheck) {
       // clear the board
       gl.clear(gl.COLOR_BUFFER_BIT);
       // update player position
@@ -653,7 +653,7 @@ function main() {
     }
 
     // Checks if a block will collide with the player
-    if (colissionloop(damagers, 0, 0, false, true)) {
+    if (collisionloop(damagers, 0, 0, false, true)) {
       resetPlayer()
     }
 
@@ -835,7 +835,7 @@ function inject_color(array, color) {
   return colorarray
 }
 
-function staticColission(xpos, ypos, newx, newy) {
+function staticcollision(xpos, ypos, newx, newy) {
   // Returns false if player is colliding, returns true if not
   // used for the borders
   tledge = 0.92  // Top left edge
@@ -857,7 +857,7 @@ function staticColission(xpos, ypos, newx, newy) {
   return true
 }
 
-function checkColission(playerx, playery, newx, newy, objectx, objecty, objectheight, objectwidth, l3=false) {
+function checkcollision(playerx, playery, newx, newy, objectx, objecty, objectheight, objectwidth, l3=false) {
   if (newx > 0) { // moving right
     if (!(playery - 0.2 > objecty - 0.01 || playery < objecty - objectheight + 0.01) && (playerx + 0.15 + newx > objectx) && !(playerx > objectx + objectwidth)){
       if (playerx > objectx + objectwidth - 0.01 && playerx < objectx + objectwidth + 0.03) {
@@ -891,7 +891,7 @@ function checkColission(playerx, playery, newx, newy, objectx, objecty, objecthe
     }
   } else if (newx == 0 && newy == 0 && l3 == true) {  // for moving damagers
     c1 = (objecty - objectheight < playery && objecty > playery - 0.19)
-    c2 = !((objectx > (playerx + 0.19)) || ((objectx + objectwidth) < playerx))
+    c2 = !((objectx > (playerx + 0.19)) || ((objectx + objectwidth - 0.01) < playerx))
     if (c1 && c2) {
       return true
     }
